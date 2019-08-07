@@ -48,7 +48,7 @@ public class UserController {
         Cookie passsword_cookie = new Cookie("password",null);
         response.addCookie(username_cookie);
         response.addCookie(passsword_cookie);
-        this. session.setAttribute("username", null);
+        this. session.setAttribute("userInfo", null);
         return "redirect:login";
 
     }
