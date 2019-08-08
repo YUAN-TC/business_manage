@@ -89,8 +89,9 @@ public class UserController {
     public String findALL(HttpSession session) throws MyException {
 
         List<UserInfo> userInfos = iUserService.findAllUser();
-        session.setAttribute("user", userInfos);
-        return "userlist";
+        session.setAttribute("userlist", userInfos);
+        session.setAttribute("user",null);
+        return "user/list";
     }
 
 
@@ -100,7 +101,7 @@ public class UserController {
 
         UserInfo userInfo = iUserService.findUserByName(name);
         session.setAttribute("user", userInfo);
-        return "userinfoupdate";
+        return "user/index";
     }
 
 
@@ -113,13 +114,13 @@ public class UserController {
         if (count > 0) {
             return "redirect:/user/find";
         }
-        return "userinfoupdate";
+        return "user/index";
     }
 
     @RequestMapping(value = "insert", method = RequestMethod.GET)
     public String insert() throws MyException {
 
-        return "userinsert";
+        return "user/index";
     }
 
     @RequestMapping(value = "insert", method = RequestMethod.POST)
@@ -131,7 +132,7 @@ public class UserController {
         if (count > 0) {
             return "redirect:/user/find";
         }
-        return "userinsert";
+        return "user/index";
     }
     @RequestMapping("delete/{id}")
     public String delete(@PathVariable("id") int id) throws MyException {
