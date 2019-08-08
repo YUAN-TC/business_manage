@@ -13,13 +13,14 @@
 <body>
 <h1>添加商品</h1>
 
-<form action="" method="post">
+<form action=""  enctype="multipart/form-data"  method="post">
 
     类别id <input type="text" name="categoryId" ><br/>
     商品名称 <input type="text" name="name" ><br/>
     商品副标题 <input type="text" name="subtitle" ><br/>
-    产品主图 <input type="text" name="mainImage" ><br/>
-    图片地址 <input type="text" name="subImages" ><br/>
+<%--    产品主图 <input type="file" name="mainImage" ><br/>--%>
+<%--    图片地址 <input type="text" name="subImages" ><br/>--%>
+    上传图片 <input type="file" name="image"><br/>
     商品详情 <input type="text" name="detail" ><br/>
     商品价格 <input type="text" name="price" ><br/>
     商品库存 <input type="text" name="stock" ><br/>

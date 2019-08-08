@@ -30,7 +30,7 @@
             <th>${product.categoryId}</th>
             <th>${product.name}</th>
             <th>${product.subtitle}</th>
-            <th>${product.mainImage}</th>
+            <th><img alt="无法显示图片" src="/Images/${product.mainImage}" height="100px" weight="100px"></th>
             <th>${product.detail}</th>
             <th>${product.price}</th>
             <th>${product.stock}</th>
@@ -42,7 +42,7 @@
             </th>
         </tr>
     </c:forEach>
-    <a href="insert">添加一个</a>
+    <a href="insert">>>>>>添加一个</a>
 </table>
 
 

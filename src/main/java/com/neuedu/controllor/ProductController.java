@@ -9,12 +9,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/user/product/")
@@ -49,9 +54,26 @@ public class ProductController {
 
 
     @RequestMapping(value = "update/{id}", method = RequestMethod.POST)
-    public String update(HttpServletRequest request, Product product, HttpServletResponse response) throws UnsupportedEncodingException {
+    public String update(@RequestParam("image")MultipartFile multipartFile,HttpServletRequest request, Product product, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
+        String newFilename=null;
+        if(multipartFile!=null){
+            String uuid= UUID.randomUUID().toString();
+            String filename=multipartFile.getOriginalFilename();
+            String fileExtendname=filename.substring(filename.lastIndexOf("."));
+            newFilename=uuid+fileExtendname;
+
+            File file=new File("D:\\IdeaImages\\business_manage");
+            if (!file.exists()){
+                file.mkdir();
+            }
+            File newfile=new File(file,newFilename);
+            multipartFile.transferTo(newfile);
+
+        }
+        product.setMainImage("/business_manage/"+newFilename);
+
         int count = iProductService.updateProduct(product);
         if (count > 0) {
             return "redirect:/user/product/find";
@@ -66,9 +88,28 @@ public class ProductController {
     }
 
     @RequestMapping(value = "insert", method = RequestMethod.POST)
-    public String insert(Product product,HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+    public String insert(@RequestParam("image")MultipartFile multipartFile, Product product, HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
+        String newFilename=null;
+        if(multipartFile!=null){
+            String uuid= UUID.randomUUID().toString();
+            String filename=multipartFile.getOriginalFilename();
+            String fileExtendname=filename.substring(filename.lastIndexOf("."));
+            newFilename=uuid+fileExtendname;
+
+            File file=new File("D:\\IdeaImages\\business_manage");
+            if (!file.exists()){
+                file.mkdir();
+            }
+            File newfile=new File(file,newFilename);
+            multipartFile.transferTo(newfile);
+
+        }
+
+
+        product.setMainImage("/business_manage/"+newFilename);
+
         int count = iProductService.addProduct(product);
         if (count > 0) {
             return "redirect:/user/product/find";

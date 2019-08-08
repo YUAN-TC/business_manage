@@ -36,7 +36,7 @@
                 </th>
             </tr>
         </c:forEach>
-        <a href="insert">添加一个</a>
+        <a href="insert">>>>>添加一个</a>
     </table>
 
 
