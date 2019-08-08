@@ -3,6 +3,7 @@ package com.neuedu.controllor;
 
 import com.neuedu.pojo.Category;
 import com.neuedu.pojo.Product;
+import com.neuedu.service.ICategoryService;
 import com.neuedu.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,12 +28,15 @@ public class ProductController {
 
     @Autowired
     IProductService iProductService;
+    @Autowired
+    ICategoryService iCategoryService;
 
     @RequestMapping("find")
     public String findALL(HttpSession session)  {
         List<Product> products = iProductService.selectallProduct();
         session.setAttribute("productlist", products);
-        return "productlist";
+        session.setAttribute("product", null);
+        return "product/list";
     }
 
     @RequestMapping("delete/{id}")
@@ -47,9 +51,11 @@ public class ProductController {
     public String update(@PathVariable("id") Integer id, HttpSession session) {
 
 
+        List<Category>categoryList=iCategoryService.findAllCategory();
         Product product = iProductService.selectBYid(id);
         session.setAttribute("product", product);
-        return "productupdate";
+        session.setAttribute("categorylist",categoryList);
+        return "product/index";
     }
 
 
@@ -78,13 +84,13 @@ public class ProductController {
         if (count > 0) {
             return "redirect:/user/product/find";
         }
-        return "productupdate";
+        return "product/update";
     }
 
     @RequestMapping(value = "insert", method = RequestMethod.GET)
     public String insert() {
 
-        return "productinsert";
+        return "product/index";
     }
 
     @RequestMapping(value = "insert", method = RequestMethod.POST)
@@ -114,7 +120,7 @@ public class ProductController {
         if (count > 0) {
             return "redirect:/user/product/find";
         }
-        return "productinsert";
+        return "product/index";
     }
 
 

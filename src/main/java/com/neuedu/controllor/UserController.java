@@ -80,7 +80,7 @@ public class UserController {
     @RequestMapping("home")
     public String home() throws MyException {
 
-        return "home";
+        return "home/home";
     }
 
 

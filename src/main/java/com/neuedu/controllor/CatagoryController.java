@@ -33,7 +33,8 @@ public class CatagoryController {
 
         List<Category> categories = iCategoryService.findAllCategory();
         session.setAttribute("categorylist", categories);
-        return "categorylist";
+        session.setAttribute("category", null);
+        return "category/list";
     }
 
     @RequestMapping("delete/{id}")
@@ -50,7 +51,7 @@ public class CatagoryController {
 
         Category category = iCategoryService.findCategoryById(id);
         session.setAttribute("category", category);
-        return "categoryupdate";
+        return "category/index";
     }
 
 
@@ -62,13 +63,13 @@ public class CatagoryController {
         if (count > 0) {
             return "redirect:/user/category/find";
         }
-        return "categoryupdate";
+        return "category/index";
     }
 
     @RequestMapping(value = "insert", method = RequestMethod.GET)
     public String insert() {
 
-        return "categoryinsert";
+        return "category/index";
     }
 
     @RequestMapping(value = "insert", method = RequestMethod.POST)
@@ -79,7 +80,7 @@ public class CatagoryController {
         if (count > 0) {
             return "redirect:/user/category/find";
         }
-        return "categoryinsert";
+        return "category/index";
     }
 
 
